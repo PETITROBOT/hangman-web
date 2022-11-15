@@ -2,13 +2,24 @@ package main
 
 import (
 	"fmt"
-	hangmanweb "hangmanweb/utils"
+	"hangmanweb/utils"
 	"net/http"
+	"os"
 	"text/template"
+
+	"golang.org/x/tools/godoc/util"
 )
 
 const port = ":8080"
 
+func StartGame() Utils.HangManData {
+	data := utils.HangManData{Attempts: 10, Error: ""}
+	data.Word = util.ReadFileName(os.Args[1])
+	data.ToFind =
+	data.HangmanPositions = utils.Drawhangman(./hangman.txt)
+}
+
+/// modif endessous ///
 func Index(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "")
 	l := r.FormValue("name")
