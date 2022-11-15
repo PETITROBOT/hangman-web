@@ -14,12 +14,12 @@
         }
     </style>
 <!-- barre où la lettre est entrée -->
-    <form action="" method="get" class="form-example">
-        <div class="barre">
+    <div class="barre">
+        <form action="/hangman.go" method="post" class="form-example">
           <input type="text" name="name" id="barre" required placeholder=" Choose a letter">
-        </div>
-    </form>
-<!-- bouton  envoyer-->
-    <button class="styled" type="button">Envoyer</button> 
+          <!-- bouton  envoyer-->
+          <input class="styled" type="submit" value="Entrer" />
+        </form>
+    </div>
 </body>
 </html>
