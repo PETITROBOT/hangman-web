@@ -102,7 +102,6 @@ func letterIsAlreadyPresent(data *HangManData, l string) bool {
 }
 
 func HangMan(data *HangManData, l string) string {
-
 	data.Error = ""
 	if len(l) > 1 {
 		if l == data.Word {
