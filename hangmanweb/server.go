@@ -45,4 +45,4 @@ func main() {
 		fmt.Println("[ERROR] - Server could not start properly.\n ", err)
 	}
 }
->>>>>>> 887a812b4fbcd757a07c5a301983af62bb41517e:server.go
+
