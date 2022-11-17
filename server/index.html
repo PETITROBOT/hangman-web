@@ -6,44 +6,48 @@
         <link rel="stylesheet" href="statics/index.css" />
     </head>
     <body>
+        <style>
+            html{
+                background-color: #988eb7;
+            }
+        </style>
         <div id="container">
             <div class="container-item left">
             <div id="letter-board" class="board">
-                <h3> Lettres proposées </h3>
+                <h3> Proposed Letters </h3>
                 <div>
                     {{range .LettersSuggested}}
-                        <p>{{.}}</p>
+                        {{.}}
                     {{end}}
                 </div>
             </div>
             <h1 id="ToFind">{{.ToFind}}</h1>
-            <h3 style="color:red">{{.Error}}</h3>
+            <h3 style="color:#533496">{{.Error}}</h3>
           
             {{if and (ge .Attempts 1) (ne .Word .ToFind)}}
             <form method="POST" action="/hangman">
-                <input type="text" maxlength="{{len .Word}}" name="Letter" autofocus placeholder="Choose a letter"/>
-                <input type="submit" name="Submit" value="Envoyer" />
+                <input class="barre" type="text" maxlength="{{len .Word}}" name="Letter" autofocus placeholder="Choose a letter"/>
+                <input class="styled" type="submit" value="submit" />
             </form>
             {{else if eq .ToFind .Word}}
                 <h1 style="color: green">CONGRATS !</h1>
-                <a href="/replay">Play again</a>
+                <form action="/replay">
+                    <input class="styled" type="submit" value="Play again" />
+                </form>
             {{else}}
-            <h1 style="color: red">You loose..., the word was {{.Word}}</h1>
-            <a href="/replay">Play again</a>
+            <h1 style="color: rgb(212, 8, 8)">You loose..., the word was {{.Word}}</h1>
+            <form action="/replay">
+                <input class="styled" type="submit" value="Play again" />
+            </form>
             {{end}}
         </div>
         <div class="container-item right">
             <div  id="hangman-board" class="board">
                 <h3> Hangman board </h3>
-                <pre >
-                    {{
-                        index .HangmanPositions (sub 9 .Attempts)
-                    }}
-                </pre>
             </div>
             <div id="container-hangman">
                 {{ if lt .Attempts 8}}
-                <div class="hangman-item" style="width: 35%; position:relative; left: 8%;">
+                <div class="hangman-item" style="width: 15%; position:relative; left: 4%;">
                     {{ if lt .Attempts 6}}
                     <div id="rope" class="hangman-item">
                         {{ if lt .Attempts 5}}
@@ -68,14 +72,14 @@
                 </div>
                 {{end}}
                 {{ if lt .Attempts 9}}
-                <div id="trunc" class="hangman-item" style="height: 50vh;width:0px;">
+                <div id="trunc" class="hangman-item" style="height: 25vh;width:0px;">
                     {{ if lt .Attempts 7}}
                     <div class="hangman-item" style="transform: rotate(45deg); position:relative; top: -20px; left: 35px;height: 100px;"></div>
                     {{end}}
                 </div>
                 {{ end }}
                 {{ if lt .Attempts 10}}
-                 <div id="base" style="width: 50%" class="hangman-item"></div>
+                 <div id="base" style="width: 15%" class="hangman-item"></div>
                 {{end}}
             </div>
         </div>
