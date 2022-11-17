@@ -54,5 +54,3 @@ func ReadFileName(name string) string { /// fonction qui prend un mot dans le fi
 	file.Close()
 	return txtlines[rand.Intn(len(txtlines)-1)]
 }
-
-func 
