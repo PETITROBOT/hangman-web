@@ -2,9 +2,11 @@ package hangmanweb
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"math/rand"
 	"os"
+	"strings"
 )
 
 type HangManData struct {
@@ -53,4 +55,73 @@ func ReadFileName(name string) string { /// fonction qui prend un mot dans le fi
 	}
 	file.Close()
 	return txtlines[rand.Intn(len(txtlines)-1)]
+}
+
+func IndexToReveal(data *HangManData, letter string) []int { /// fonction qui permet
+	var results []int
+
+	index := len(data.Word)
+	tmp := data.Word
+	for {
+		match := strings.LastIndex(tmp[0:index], letter)
+		if match == -1 {
+			break
+		} else {
+			index = match
+			results = append(results, match)
+		}
+	}
+
+	return results
+}
+
+func RevealLetters(data *HangManData, indexes []int) {
+	tmp := []rune(data.ToFind)
+	for _, c := range indexes {
+		tmp[c] = rune(data.Word[c])
+	}
+	data.ToFind = string(tmp)
+}
+
+func RevealRandomLetter(data *HangManData) {
+	nbr := len(data.Word)/2 - 1
+	var indexes []int = make([]int, nbr)
+	for i := 0; i < nbr; i++ {
+		indexes[i] = rand.Intn(len(data.Word) - 1)
+	}
+	RevealLetters(data, indexes)
+}
+
+func letterIsAlreadyPresent(data *HangManData, l string) bool {
+	for _, letter := range data.LettersSuggested {
+		if letter == l {
+			return true
+		}
+	}
+	return false
+}
+
+func HangMan(data *HangManData, l string) string {
+
+	data.Error = ""
+	if len(l) > 1 {
+		if l == data.Word {
+			data.ToFind = data.Word
+		} else {
+			data.Attempts -= 2
+			data.Error = fmt.Sprintf("The word is not %s, %d attempts remaining\n", l, data.Attempts)
+		}
+	} else if !letterIsAlreadyPresent(data, l) {
+		data.LettersSuggested = append(data.LettersSuggested, l)
+		indexes := IndexToReveal(data, l)
+		if len(indexes) > 0 {
+			RevealLetters(data, indexes)
+		} else {
+			data.Attempts -= 1
+			data.Error = fmt.Sprintf("Not present in the word, %d attempts remaining\n", data.Attempts)
+		}
+	} else {
+		data.Error = fmt.Sprintf("Letter '%s' already suggested\n", l)
+	}
+	return data.Error
 }
