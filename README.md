@@ -1,5 +1,3 @@
-#hangman web solutions
-
 ## Play hagman-web
 Go into the hangman-web directory:
 ```bash
