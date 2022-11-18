@@ -14,14 +14,14 @@
         <div id="container">
             <div class="container-item left">
             <div id="letter-board" class="board">
-                <h3> Proposed Letters </h3>
+                <h3> <pre>Proposed Letters</pre> </h3>
                 <div>
                     {{range .LettersSuggested}}
                         {{.}}
                     {{end}}
                 </div>
             </div>
-            <h1 id="ToFind">{{.ToFind}}</h1>
+            <h1 id="ToFind"><pre>{{.ToFind}}</pre></h1>
             <h3 style="color:#533496">{{.Error}}</h3>
           
             {{if and (ge .Attempts 1) (ne .Word .ToFind)}}
@@ -30,12 +30,12 @@
                 <input class="styled" type="submit" value="submit" />
             </form>
             {{else if eq .ToFind .Word}}
-                <h1 style="color: green">CONGRATS !</h1>
+                <h1 style="color: green"><pre>CONGRATS !</pre></h1>
                 <form action="/replay">
                     <input class="styled" type="submit" value="Play again" />
                 </form>
             {{else}}
-            <h1 style="color: rgb(212, 8, 8)">You loose..., the word was {{.Word}}</h1>
+            <h1 style="color: rgb(212, 8, 8)"><pre>You loose..., the word was {{.Word}}</pre></h1>
             <form action="/replay">
                 <input class="styled" type="submit" value="Play again" />
             </form>
@@ -43,7 +43,7 @@
         </div>
         <div class="container-item right">
             <div  id="hangman-board" class="board">
-                <h3> Hangman board </h3>
+                <h3><pre>Hangman board</pre></h3>
             </div>
             <div id="container-hangman">
                 {{ if lt .Attempts 8}}

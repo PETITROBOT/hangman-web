@@ -94,7 +94,7 @@ func Revealletters(data *HangManData, indexes []int) {
 	data.ToFind = string(tmp)
 }
 
-func RevealRandomLetter(data *HangManData) {
+func Revealrandomletter(data *HangManData) {
 	nbr := len(data.Word)/2 - 1
 	var indexes []int = make([]int, nbr)
 	for i := 0; i < nbr; i++ {
@@ -112,7 +112,7 @@ func Letterispresent(data *HangManData, l string) bool {
 	return false
 }
 
-func HangMan(data *HangManData, l string) string {
+func Hangman(data *HangManData, l string) string {
 
 	data.Error = ""
 	if len(l) > 1 {

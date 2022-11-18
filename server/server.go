@@ -20,7 +20,7 @@ func StartGame() Utils.HangManData {
 	data.ToFind = strings.Repeat("_", utf8.RuneCountInString(data.Word))
 	data.HangmanPositions = Utils.Drawhangman("./hangman.txt")
 
-	Utils.RevealRandomLetter(&data)
+	Utils.Revealrandomletter(&data)
 	return data
 }
 
@@ -29,7 +29,7 @@ func HandleHangman(w http.ResponseWriter, r *http.Request, data *Utils.HangManDa
 
 	l := r.FormValue("Letter")
 	if l != "" {
-		Utils.HangMan(data, l)
+		Utils.Hangman(data, l)
 	}
 
 	http.Redirect(w, r, "/", http.StatusFound)
